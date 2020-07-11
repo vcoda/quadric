@@ -1,0 +1,3 @@
+[submodule "include/rapid"]
+	path = include/rapid
+	url = https://github.com/vcoda/rapid.git
