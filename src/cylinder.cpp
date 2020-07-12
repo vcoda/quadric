@@ -148,8 +148,8 @@ inline uint16_t Cylinder::calcVertexIndex(uint16_t ring, uint16_t side) const no
 
 uint16_t Cylinder::calcPoleVertexIndex(bool south) const noexcept
 {
-    uint16_t index = (sides + 1) * (rings + 1);
+    uint32_t index = (sides + 1) * (rings + 1);
     if (south) index += (sides + 1) + 1; // top cap
     assert(index <= std::numeric_limits<uint16_t>::max());
-    return index;
+    return (uint16_t)index;
 }
