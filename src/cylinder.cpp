@@ -9,7 +9,7 @@ using namespace rapid::constants;
 
 Cylinder::Cylinder(float topRadius, float bottomRadius, float length, uint16_t sides, uint16_t rings,
     bool textureMirrorRepeat, std::shared_ptr<magma::CommandBuffer> cmdBuffer):
-    Quadric((sides + 1) * rings, sides * (rings - 1) * 2, cmdBuffer->getDevice()),
+    Quadric((sides + 1) * (rings + 1), sides * rings * 2, cmdBuffer->getDevice()),
     topRadius(topRadius),
     bottomRadius(bottomRadius),
     sides(sides),
@@ -33,7 +33,7 @@ Cylinder::Cylinder(float topRadius, float bottomRadius, float length, uint16_t s
     SinCosTable phi(rapid::constants::halfPi, phiStep, sides + 1);
     // Calculate rings
     Vertex *verts = vertices->getMemory()->map<Vertex>();
-    for (uint16_t ring = 0; ring < rings; ++ring)
+    for (uint16_t ring = 0; ring < rings + 1; ++ring)
     {
         for (uint16_t side = 0; side < sides + 1; ++side)
         {
@@ -56,7 +56,7 @@ Cylinder::Cylinder(float topRadius, float bottomRadius, float length, uint16_t s
     }
     // Build indices
     Face *faces = indices->getMemory()->map<Face>();
-    for (uint16_t ring = 0; ring < rings - 1; ++ring)
+    for (uint16_t ring = 0; ring < rings; ++ring)
     {
         for (uint16_t side = 0; side < sides; ++side)
         {
@@ -83,7 +83,7 @@ inline float Cylinder::calcSCoord(uint16_t side, bool mirror) const noexcept
 
 inline float Cylinder::calcTCoord(uint16_t ring) const noexcept
 {
-    return 1.f - ring/(float)(rings - 1);
+    return 1.f - ring/(float)rings;
 }
 
 inline uint16_t Cylinder::calcVertexIndex(uint16_t ring, uint16_t side) const noexcept
