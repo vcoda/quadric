@@ -18,6 +18,12 @@ Cylinder::Cylinder(float topRadius, float bottomRadius, float length, uint16_t s
     rings(rings),
     capped(capped)
 {
+    if ((topRadius < 0.f) || (bottomRadius < 0.f))
+        throw std::invalid_argument("invalid cylinder radius");
+    if (length < 0.f)
+        throw std::invalid_argument("invalid cylinder length");
+    if (sides < 3 || rings < 1)
+        throw std::invalid_argument("invalid cylinder parameter");
     const float radiusDelta = topRadius - bottomRadius;
     const float radiusStep = radiusDelta/rings;
     const float yStep = length/rings;

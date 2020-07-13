@@ -15,6 +15,12 @@ Knot::Knot(float radius, uint16_t turns, uint16_t sides, uint16_t rings,
     rings(rings),
     radius(radius)
 {
+    if (radius < 0.f)
+        throw std::invalid_argument("invalid knot radius");
+    if (turns%2 == 0) // Should be odd
+        throw std::invalid_argument("not an knot turn count");
+    if (sides < 3 || rings < turns * 2)
+        throw std::invalid_argument("invalid knot parameter");
     const float step = twoPi/rings;
     SinCosTable theta(0.f, turns * step, rings + 1); // xy plane
     SinCosTable phi(0.f, 2.f * step, rings + 1); // xz plane

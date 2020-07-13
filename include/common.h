@@ -18,6 +18,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 #pragma once
 #include <cstdint>
 #include <memory>
+#include <exception>
 #if !defined(DIRECTX_MATH_VERSION)
 // Include once
 #include "rapid/rapid.h"

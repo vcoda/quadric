@@ -13,7 +13,7 @@ namespace quadric
 
     protected:
         Quadric(uint16_t numVertices, uint32_t numFaces,
-            std::shared_ptr<magma::Device> device) noexcept;
+            std::shared_ptr<magma::Device> device);
         void upload(std::shared_ptr<magma::CommandBuffer> cmdBuffer);
 
         const uint16_t numVertices;

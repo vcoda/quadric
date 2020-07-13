@@ -15,6 +15,10 @@ BezierPatch::BezierPatch(const uint32_t patches[][16], uint16_t numPatches, cons
     numPatches(numPatches),
     numPatchVertices((divs + 1) * (divs + 1))
 {
+    if (numPatches < 1)
+        throw std::invalid_argument("invalid bezier patch count");
+    if (divs < 1)
+        throw std::invalid_argument("invalid bezier subdivision parameter");
     Vertex *v = vertices->getMemory()->map<Vertex>();
     rapid::vector3 controlPoints[16];
     for (uint16_t np = 0; np < numPatches; ++np)

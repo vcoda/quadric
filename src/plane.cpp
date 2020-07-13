@@ -10,6 +10,9 @@ Plane::Plane(float width, float length, bool twoSided,
     width(width),
     length(length)
 {
+    if ((width < 0.f) || (length < 0.f))
+        throw std::invalid_argument("invalid plane dimension");
+
     const float w = width * .5f;
     const float l = length * .5f;
     constexpr rapid::float3 normal(0.f, 1.f, 0.f);

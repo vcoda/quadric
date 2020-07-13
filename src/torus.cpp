@@ -15,6 +15,10 @@ Torus::Torus(float innerRadius, float outerRadius, uint16_t sides, uint16_t ring
     sides(sides),
     rings(rings)
 {
+    if ((innerRadius < 0.f) || (outerRadius < 0.f))
+        throw std::invalid_argument("invalid torus radius");
+    if (sides < 3 || rings < 3)
+        throw std::invalid_argument("invalid torus parameter");
     // theta - angle on xy plane
     const float thetaStep = twoPi/rings;
     SinCosTable theta(0.f, thetaStep, rings + 1);

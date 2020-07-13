@@ -14,6 +14,10 @@ Sphere::Sphere(float radius, uint16_t slices, uint16_t stacks, bool spherical,
     slices(slices),
     stacks(stacks)
 {
+    if (radius < 0.f)
+        throw std::invalid_argument("invalid sphere radius");
+    if ((slices < 3) || (stacks < 3))
+        throw std::invalid_argument("invalid sphere parameter");
     // phi - angle on xz plane
     const float phiStep = twoPi/slices;
     const float phiStart = halfPi;
