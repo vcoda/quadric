@@ -5,6 +5,9 @@ namespace quadric
 {
     class Quadric
     {
+        Quadric(const Quadric&) = delete;
+        Quadric& operator=(const Quadric&) = delete;
+
     public:
         uint16_t getNumVertices() const { return numVertices; }
         uint16_t getNumFaces() const { return numFaces; }
