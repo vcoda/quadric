@@ -10,7 +10,7 @@ Quadric::Quadric(uint16_t numVertices, uint32_t numFaces, std::shared_ptr<Device
     numVertices(numVertices),
     numFaces((uint16_t)numFaces),
     vertices(std::make_shared<SrcTransferBuffer>(device, numVertices * sizeof(Vertex))),
-    indices(std::make_shared<SrcTransferBuffer>(std::move(device), numFaces * 3 * sizeof(uint16_t)))
+    indices(std::make_shared<SrcTransferBuffer>(std::move(device), numFaces * sizeof(Face)))
 {
     if (numFaces > std::numeric_limits<uint16_t>::max())
         throw std::length_error("face count exceed maximum unsigned short value");
