@@ -39,6 +39,8 @@ void Quadric::upload(std::shared_ptr<CommandBuffer> cmdBuffer)
     vertexBuffer = std::make_shared<VertexBuffer>(cmdBuffer, std::move(vertices));
     indexBuffer = std::make_shared<IndexBuffer>(std::move(cmdBuffer),
         std::move(indices), VK_INDEX_TYPE_UINT16);
+    vertices.reset();
+    indices.reset();
 }
 
 namespace magma
