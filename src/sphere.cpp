@@ -36,8 +36,8 @@ Sphere::Sphere(float radius, uint16_t slices, uint16_t stacks, bool spherical,
         sincosEst(&sinTheta, &cosTheta, theta);
         for (uint16_t slice = 0; slice < slices; ++slice)
         {
-            v->pos.x = radius * phi.cos(slice);
-            v->pos.z = radius * phi.sin(slice);
+            v->pos.x = radius * sinTheta * phi.cos(slice);
+            v->pos.z = radius * sinTheta * phi.sin(slice);
             v->pos.y = radius * cosTheta;
             v->normal.x = sinTheta * phi.cos(slice);
             v->normal.z = sinTheta * phi.sin(slice);
