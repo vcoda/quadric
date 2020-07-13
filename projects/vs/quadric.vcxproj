@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\backend.h" />
     <ClInclude Include="..\..\include\bezierPatch.h" />
     <ClInclude Include="..\..\include\cube.h" />
     <ClInclude Include="..\..\include\cylinder.h" />
@@ -159,6 +160,8 @@
     </ClCompile>
     <ClCompile Include="..\..\src\plane.cpp" />
     <ClCompile Include="..\..\src\quadric.cpp" />
+    <ClCompile Include="..\..\src\quadricGl.cpp" />
+    <ClCompile Include="..\..\src\quadricVk.cpp" />
     <ClCompile Include="..\..\src\sincosTable.cpp" />
     <ClCompile Include="..\..\src\sphere.cpp" />
     <ClCompile Include="..\..\src\teapot.cpp" />

@@ -23,16 +23,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 // Include once
 #include "rapid/rapid.h"
 #endif
-
-namespace magma
-{
-    class Device;
-    class VertexBuffer;
-    class IndexBuffer;
-    class SrcTransferBuffer;
-    class CommandBuffer;
-    class VertexInputState;
-}
+#include "backend.h"
 
 namespace quadric
 {
