@@ -41,7 +41,7 @@ Cylinder::Cylinder(float topRadius, float bottomRadius, float length, uint16_t s
     const float phiStep = twoPi/sides;
     SinCosTable phi(halfPi, phiStep, sides + 1);
     // Calculate rings
-    Vertex *verts = vertices->getMemory()->map<Vertex>();
+    Vertex *verts = mapVertices();
     for (uint16_t ring = 0; ring < rings + 1; ++ring)
     {
         for (uint16_t side = 0; side < sides + 1; ++side)
@@ -64,7 +64,7 @@ Cylinder::Cylinder(float topRadius, float bottomRadius, float length, uint16_t s
         radius -= radiusStep;
     }
     // Build indices
-    Face *faces = indices->getMemory()->map<Face>();
+    Face *faces = mapIndices();
     for (uint16_t ring = 0; ring < rings; ++ring)
     {
         for (uint16_t side = 0; side < sides; ++side)

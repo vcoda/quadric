@@ -25,8 +25,8 @@ Sphere::Sphere(float radius, uint16_t slices, uint16_t stacks, bool spherical,
     const float step = pi/stacks;
     float theta = step;
 
-    Vertex *v = vertices->getMemory()->map<Vertex>();
-    Face *face = indices->getMemory()->map<Face>();
+    Vertex *v = mapVertices();
+    Face *face = mapIndices();
 
     // North pole
     pole(radius, spherical, v++);

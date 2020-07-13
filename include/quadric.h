@@ -14,15 +14,21 @@ namespace quadric
 
     protected:
         Quadric(uint16_t numVertices, uint32_t numFaces, backend::Device device);
+        Vertex *mapVertices();
+        Face *mapIndices();
         void upload(backend::CommandBuffer cmdBuffer);
 
         const uint16_t numVertices;
         const uint16_t numFaces;
+        backend::VertexBuffer vertexBuffer;
+        backend::IndexBuffer indexBuffer;
+
+    private:
         backend::Device device;
         backend::SrcTransferBuffer vertices;
         backend::SrcTransferBuffer indices;
-        backend::VertexBuffer vertexBuffer;
-        backend::IndexBuffer indexBuffer;
+        backend::VertexBuffer vertexArray;
         backend::BufferMemory memory;
+        void *memData = nullptr;
     };
 }

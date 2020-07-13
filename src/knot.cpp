@@ -34,7 +34,7 @@ Knot::Knot(float radius, uint16_t turns, uint16_t sides, uint16_t rings,
             f * .3f * theta.sin(ring),
             f * phi.sin(ring));
     }
-    Vertex *verts = vertices->getMemory()->map<Vertex>();
+    Vertex *verts = mapVertices();
     for (uint16_t ring = 0; ring < rings + 1; ++ring)
     {
         const float s = calcSCoord(ring, textureMirrorRepeat);
@@ -64,7 +64,7 @@ Knot::Knot(float radius, uint16_t turns, uint16_t sides, uint16_t rings,
         }
     }
     // Build indices
-    Face *faces = indices->getMemory()->map<Face>();
+    Face *faces = mapIndices();
     for (uint16_t ring = 0; ring < rings; ++ring)
     {
         for (uint16_t side = 0; side < sides; ++side)

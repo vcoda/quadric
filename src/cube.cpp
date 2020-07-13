@@ -41,7 +41,7 @@ Cube::Cube(std::shared_ptr<magma::CommandBuffer> cmdBuffer):
         16, 17, 18, 18, 17, 19,
         20, 21, 22, 22, 21, 23
     };
-    memcpy(vertices->getMemory()->map(), verts, sizeof(verts));
-    memcpy(indices->getMemory()->map(), faces, sizeof(faces));
+    memcpy(mapVertices(), verts, sizeof(verts));
+    memcpy(mapIndices(), faces, sizeof(faces));
     upload(std::move(cmdBuffer));
 }

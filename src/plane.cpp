@@ -17,7 +17,7 @@ Plane::Plane(float width, float length, bool twoSided,
     const float l = length * .5f;
     constexpr rapid::float3 normal(0.f, 1.f, 0.f);
 
-    Vertex *verts = vertices->getMemory()->map<Vertex>();
+    Vertex *verts = mapVertices();
     verts[0].pos = {-w, 0.f, -l};
     verts[0].normal = normal;
     verts[0].tex = {0.f, 0.f};
@@ -38,7 +38,7 @@ Plane::Plane(float width, float length, bool twoSided,
         0, 1, 2, 2, 1, 3,
         0, 2, 1, 1, 2, 3
     };
-    memcpy(indices->getMemory()->map(),
+    memcpy(mapIndices(),
         twoSided ? frontAndBack : front,
         numFaces * 3 * sizeof(uint16_t));
     upload(std::move(cmdBuffer));

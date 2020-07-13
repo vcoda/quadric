@@ -19,7 +19,7 @@ BezierPatch::BezierPatch(const uint32_t patches[][16], uint16_t numPatches, cons
         throw std::invalid_argument("invalid bezier patch count");
     if (divs < 1)
         throw std::invalid_argument("invalid bezier subdivision parameter");
-    Vertex *v = vertices->getMemory()->map<Vertex>();
+    Vertex *v = mapVertices();
     rapid::vector3 controlPoints[16];
     for (uint16_t np = 0; np < numPatches; ++np)
     {   // Set patch control points
@@ -63,7 +63,7 @@ BezierPatch::BezierPatch(const uint32_t patches[][16], uint16_t numPatches, cons
             patchIndices[k * 4 + 3] = (divs + 1) * (j + 1) + i;
         }
     }
-    Face *faces = indices->getMemory()->map<Face>();
+    Face *faces = mapIndices();
     for (uint16_t i = 0, k = 0; i < numPatchFaces; ++i, k += 4)
     {
         const uint16_t faceIndex = i * 2;

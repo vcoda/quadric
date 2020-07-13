@@ -36,6 +36,16 @@ void Quadric::draw(backend::CommandBuffer cmdBuffer) const noexcept
     cmdBuffer->drawIndexed(indexBuffer->getIndexCount());
 }
 
+Vertex *Quadric::mapVertices()
+{
+    return (Vertex *)vertices->getMemory()->map();
+}
+
+Face *Quadric::mapIndices()
+{
+    return (Face *)indices->getMemory()->map();
+}
+
 void Quadric::upload(backend::CommandBuffer cmdBuffer)
 {
     vertices->getMemory()->unmap();
