@@ -8,7 +8,7 @@ using namespace rapid;
 using namespace rapid::constants;
 
 Torus::Torus(float innerRadius, float outerRadius, uint16_t sides, uint16_t rings,
-    bool textureMirrorRepeat, std::shared_ptr<magma::CommandBuffer> cmdBuffer):
+    bool mirrorTexture, std::shared_ptr<magma::CommandBuffer> cmdBuffer):
     Quadric((sides + 1) * (rings + 1), sides * rings * 2, cmdBuffer->getDevice()),
     innerRadius(innerRadius),
     outerRadius(outerRadius),
@@ -42,7 +42,7 @@ Torus::Torus(float innerRadius, float outerRadius, uint16_t sides, uint16_t ring
     // Rotate first ring to get other rings
     for (uint16_t ring = 1; ring < rings + 1; ++ring)
     {
-        const float s = calcSCoord(ring, textureMirrorRepeat);
+        const float s = calcSCoord(ring, mirrorTexture);
         for (uint16_t side = 0; side < sides + 1; ++side)
         {
             const Vertex& ref = verts[side];

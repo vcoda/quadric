@@ -8,7 +8,7 @@ using namespace rapid;
 using namespace rapid::constants;
 
 Knot::Knot(float radius, uint16_t turns, uint16_t sides, uint16_t rings,
-    bool textureMirrorRepeat, std::shared_ptr<magma::CommandBuffer> cmdBuffer):
+    bool mirrorTexture, std::shared_ptr<magma::CommandBuffer> cmdBuffer):
     Quadric((sides + 1) * (rings + 1), sides * rings * 2, cmdBuffer->getDevice()),
     turns(turns),
     sides(sides),
@@ -37,7 +37,7 @@ Knot::Knot(float radius, uint16_t turns, uint16_t sides, uint16_t rings,
     Vertex *verts = vertices->getMemory()->map<Vertex>();
     for (uint16_t ring = 0; ring < rings + 1; ++ring)
     {
-        const float s = calcSCoord(ring, textureMirrorRepeat);
+        const float s = calcSCoord(ring, mirrorTexture);
         for (uint16_t side = 0; side < sides + 1; ++side)
         {   // Get the vector from the center of this ring to the center of the next
             vector3 tangent;

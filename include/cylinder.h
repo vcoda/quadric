@@ -9,7 +9,7 @@ namespace quadric
     {
     public:
         explicit Cylinder(float topRadius, float bottomRadius, float length, uint16_t sides, uint16_t rings, bool capped,
-            bool textureMirrorRepeat, std::shared_ptr<magma::CommandBuffer> cmdBuffer);
+            bool mirrorTexture, std::shared_ptr<magma::CommandBuffer> cmdBuffer);
         float getTopRadius() const noexcept { return topRadius; }
         float getBottomRadius() const noexcept { return bottomRadius; }
         uint16_t getNumSides() const noexcept { return sides; }

@@ -8,7 +8,7 @@ using namespace rapid;
 using namespace rapid::constants;
 
 Cylinder::Cylinder(float topRadius, float bottomRadius, float length, uint16_t sides, uint16_t rings, bool capped,
-    bool textureMirrorRepeat, std::shared_ptr<magma::CommandBuffer> cmdBuffer):
+    bool mirrorTexture, std::shared_ptr<magma::CommandBuffer> cmdBuffer):
     Quadric((sides + 1) * (rings + 1) + (capped ? (sides + 2) * 2 : 0),
         sides * rings * 2 + (capped ? sides * 2 : 0),
         cmdBuffer->getDevice()),
@@ -57,7 +57,7 @@ Cylinder::Cylinder(float topRadius, float bottomRadius, float length, uint16_t s
             vector3 normal(v.normal);
             normal.normalize();
             normal.store(&v.normal);
-            v.tex.s = calcSCoord(side, textureMirrorRepeat);
+            v.tex.s = calcSCoord(side, mirrorTexture);
             v.tex.t = calcTCoord(ring);
         }
         y -= yStep;
