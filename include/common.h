@@ -1,5 +1,5 @@
 /*
-Collection of quadric surfaces to draw with Vulkan.
+Collection of quadric surfaces and bezier meshes.
 Copyright (C) 2020 Victor Coda.
 
 This program is free software: you can redistribute it and/or modify
