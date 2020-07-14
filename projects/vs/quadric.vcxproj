@@ -76,7 +76,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../include;../../include;$(VK_SDK_PATH)\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../include;../../include/gl;$(VK_SDK_PATH)\Include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -88,7 +88,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../include;../../include;$(VK_SDK_PATH)\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../include;../../include/gl;$(VK_SDK_PATH)\Include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -102,7 +102,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../include;../../include;$(VK_SDK_PATH)\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../include;../../include/gl;$(VK_SDK_PATH)\Include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -121,7 +121,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../include;../../include;$(VK_SDK_PATH)\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../include;../../include/gl;$(VK_SDK_PATH)\Include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <TreatWarningAsError>true</TreatWarningAsError>
@@ -153,6 +153,7 @@
     <ClCompile Include="..\..\src\cylinder.cpp" />
     <ClCompile Include="..\..\src\knot.cpp" />
     <ClCompile Include="..\..\src\mesh\mesh.cpp" />
+    <ClCompile Include="..\..\src\mesh\meshGL.cpp" />
     <ClCompile Include="..\..\src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

@@ -13,6 +13,7 @@ endif
 
 OBJS= \
 	src/mesh/mesh.o \
+	src/mesh/meshGL.o \
 	src/bezierPatch.o \
 	src/cube.o \
 	src/cylinder.o \
