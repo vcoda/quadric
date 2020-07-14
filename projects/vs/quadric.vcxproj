@@ -137,6 +137,7 @@
     <ClInclude Include="..\..\include\cube.h" />
     <ClInclude Include="..\..\include\cylinder.h" />
     <ClInclude Include="..\..\include\knot.h" />
+    <ClInclude Include="..\..\include\mesh.h" />
     <ClInclude Include="..\..\include\pch.h" />
     <ClInclude Include="..\..\include\plane.h" />
     <ClInclude Include="..\..\include\quadric.h" />
@@ -151,6 +152,7 @@
     <ClCompile Include="..\..\src\cube.cpp" />
     <ClCompile Include="..\..\src\cylinder.cpp" />
     <ClCompile Include="..\..\src\knot.cpp" />
+    <ClCompile Include="..\..\src\mesh\mesh.cpp" />
     <ClCompile Include="..\..\src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

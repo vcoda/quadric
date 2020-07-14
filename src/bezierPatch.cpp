@@ -10,8 +10,8 @@ using namespace rapid;
 using namespace rapid::constants;
 
 BezierPatch::BezierPatch(const uint32_t patches[][16], uint16_t numPatches, const float patchVertices[][3],
-    uint16_t divs, std::shared_ptr<magma::CommandBuffer> cmdBuffer):
-    Quadric(numPatches * (divs + 1) * (divs + 1), divs * divs * 2, cmdBuffer->getDevice()),
+    uint16_t divs, CommandBuffer cmdBuffer):
+    Quadric(numPatches * (divs + 1) * (divs + 1), divs * divs * 2, std::move(cmdBuffer)),
     numPatches(numPatches),
     numPatchVertices((divs + 1) * (divs + 1))
 {
@@ -19,7 +19,7 @@ BezierPatch::BezierPatch(const uint32_t patches[][16], uint16_t numPatches, cons
         throw std::invalid_argument("invalid bezier patch count");
     if (divs < 1)
         throw std::invalid_argument("invalid bezier subdivision parameter");
-    Vertex *v = vertices->getMemory()->map<Vertex>();
+    Vertex *v = mesh->mapVertices();
     rapid::vector3 controlPoints[16];
     for (uint16_t np = 0; np < numPatches; ++np)
     {   // Set patch control points
@@ -63,7 +63,7 @@ BezierPatch::BezierPatch(const uint32_t patches[][16], uint16_t numPatches, cons
             patchIndices[k * 4 + 3] = (divs + 1) * (j + 1) + i;
         }
     }
-    Face *faces = indices->getMemory()->map<Face>();
+    Face *faces = mesh->mapIndices();
     for (uint16_t i = 0, k = 0; i < numPatchFaces; ++i, k += 4)
     {
         const uint16_t faceIndex = i * 2;
@@ -76,16 +76,15 @@ BezierPatch::BezierPatch(const uint32_t patches[][16], uint16_t numPatches, cons
         face1.v[1] = patchIndices[k + 3];
         face1.v[2] = patchIndices[k + 2];
     }
-    upload(std::move(cmdBuffer));
+    mesh->unmap();
 }
 
-void BezierPatch::draw(std::shared_ptr<magma::CommandBuffer> cmdBuffer) const noexcept
+void BezierPatch::draw(CommandBuffer cmdBuffer) const noexcept
 {
-    cmdBuffer->bindVertexBuffer(0, vertexBuffer);
-    cmdBuffer->bindIndexBuffer(indexBuffer);
+    mesh->bind(cmdBuffer);
     for (uint16_t i = 0; i < numPatches; ++i)
     {
         const uint32_t baseVertex = numPatchVertices * i;
-        cmdBuffer->drawIndexed(indexBuffer->getIndexCount(), 0, (int)baseVertex);
+        mesh->draw(cmdBuffer, numFaces * 3, (int)baseVertex);
     }
 }

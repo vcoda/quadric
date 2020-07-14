@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\mesh">
+      <UniqueIdentifier>{e1f3397a-c091-4b31-bfe1-2bc3685e2144}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\cube.h">
@@ -51,6 +54,9 @@
     <ClInclude Include="..\..\include\common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\cube.cpp">
@@ -85,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\teapot.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\mesh\mesh.cpp">
+      <Filter>Source Files\mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

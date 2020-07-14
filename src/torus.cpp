@@ -8,8 +8,8 @@ using namespace rapid;
 using namespace rapid::constants;
 
 Torus::Torus(float innerRadius, float outerRadius, uint16_t sides, uint16_t rings,
-    bool mirrorTexture, std::shared_ptr<magma::CommandBuffer> cmdBuffer):
-    Quadric((sides + 1) * (rings + 1), sides * rings * 2, cmdBuffer->getDevice()),
+    bool mirrorTexture, CommandBuffer cmdBuffer):
+    Quadric((sides + 1) * (rings + 1), sides * rings * 2, std::move(cmdBuffer)),
     innerRadius(innerRadius),
     outerRadius(outerRadius),
     sides(sides),
@@ -26,7 +26,7 @@ Torus::Torus(float innerRadius, float outerRadius, uint16_t sides, uint16_t ring
     const float phiStep = twoPi/sides;
     SinCosTable phi(0.f, phiStep, sides + 1);
     // Calculate first ring
-    Vertex *verts = vertices->getMemory()->map<Vertex>();
+    Vertex *verts = mesh->mapVertices();
     for (uint16_t side = 0; side < sides + 1; ++side)
     {
         Vertex& v = verts[side];
@@ -59,7 +59,7 @@ Torus::Torus(float innerRadius, float outerRadius, uint16_t sides, uint16_t ring
         }
     }
     // Build indices
-    Face *faces = indices->getMemory()->map<Face>();
+    Face *faces = mesh->mapIndices();
     for (uint16_t ring = 0; ring < rings; ++ring)
     {
         for (uint16_t side = 0; side < sides; ++side)
@@ -75,7 +75,7 @@ Torus::Torus(float innerRadius, float outerRadius, uint16_t sides, uint16_t ring
             face1.v[2] = calcVertexIndex(ring + 1, side);
         }
     }
-    upload(std::move(cmdBuffer));
+    mesh->unmap();
 }
 
 inline float Torus::calcSCoord(uint16_t ring, bool mirror) const noexcept

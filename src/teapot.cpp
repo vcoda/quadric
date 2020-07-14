@@ -354,7 +354,7 @@ float teapotVertices[kTeapotNumVertices][3] = {
 
 using namespace quadric;
 
-Teapot::Teapot(uint16_t subdivisionDegree, std::shared_ptr<magma::CommandBuffer> cmdBuffer):
+Teapot::Teapot(uint16_t subdivisionDegree, CommandBuffer cmdBuffer):
     BezierPatch(teapotPatches,
         kTeapotNumPatches,
         teapotVertices,

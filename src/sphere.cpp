@@ -8,8 +8,8 @@ using namespace rapid;
 using namespace rapid::constants;
 
 Sphere::Sphere(float radius, uint16_t slices, uint16_t stacks, bool spherical,
-    std::shared_ptr<magma::CommandBuffer> cmdBuffer):
-    Quadric(2 + slices * (stacks - 1), 2 * slices + (stacks - 2) * (2 * slices), cmdBuffer->getDevice()),
+    CommandBuffer cmdBuffer):
+    Quadric(2 + slices * (stacks - 1), 2 * slices + (stacks - 2) * (2 * slices), std::move(cmdBuffer)),
     radius(radius),
     slices(slices),
     stacks(stacks)
@@ -25,9 +25,8 @@ Sphere::Sphere(float radius, uint16_t slices, uint16_t stacks, bool spherical,
     const float step = pi/stacks;
     float theta = step;
 
-    Vertex *v = vertices->getMemory()->map<Vertex>();
-    Face *face = indices->getMemory()->map<Face>();
-
+    Vertex *v = mesh->mapVertices();
+    Face *face = mesh->mapIndices();
     // North pole
     pole(radius, spherical, v++);
     for (uint16_t stack = 0; stack < stacks - 1; ++stack)
@@ -111,8 +110,7 @@ Sphere::Sphere(float radius, uint16_t slices, uint16_t stacks, bool spherical,
     face->v[0] = calcVertexIndex(slices - 1, bottomStack);
     face->v[1] = calcVertexIndex(0, bottomStack);
     face->v[2] = numVertices - 1;
-
-    upload(std::move(cmdBuffer));
+    mesh->unmap();
 }
 
 void Sphere::pole(float radius, bool spherical, Vertex *v) const noexcept

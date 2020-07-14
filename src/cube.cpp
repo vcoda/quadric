@@ -4,8 +4,8 @@
 
 using namespace quadric;
 
-Cube::Cube(std::shared_ptr<magma::CommandBuffer> cmdBuffer):
-    Quadric(24, 36, cmdBuffer->getDevice())
+Cube::Cube(CommandBuffer cmdBuffer):
+    Quadric(24, 36, std::move(cmdBuffer))
 {
     constexpr float verts[] = {
         -1, -1, 1, -1, 0, 0, 0, 0,
@@ -41,7 +41,7 @@ Cube::Cube(std::shared_ptr<magma::CommandBuffer> cmdBuffer):
         16, 17, 18, 18, 17, 19,
         20, 21, 22, 22, 21, 23
     };
-    memcpy(vertices->getMemory()->map(), verts, sizeof(verts));
-    memcpy(indices->getMemory()->map(), faces, sizeof(faces));
-    upload(std::move(cmdBuffer));
+    memcpy(mesh->mapVertices(), verts, sizeof(verts));
+    memcpy(mesh->mapIndices(), faces, sizeof(faces));
+    mesh->unmap();
 }

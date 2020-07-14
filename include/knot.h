@@ -7,7 +7,7 @@ namespace quadric
     {
     public:
         explicit Knot(float radius, uint16_t turns, uint16_t sides, uint16_t rings,
-            bool mirrorTexture, std::shared_ptr<magma::CommandBuffer> cmdBuffer);
+            bool mirrorTexture, CommandBuffer cmdBuffer);
         float getRadius() const noexcept { return radius; }
         uint16_t getTurns() const noexcept { return turns; }
         uint16_t getSides() const noexcept { return sides; }

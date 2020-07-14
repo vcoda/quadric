@@ -1,5 +1,5 @@
 #pragma once
-#include "common.h"
+#include "mesh.h"
 
 namespace quadric
 {
@@ -9,21 +9,17 @@ namespace quadric
         Quadric& operator=(const Quadric&) = delete;
 
     public:
+        virtual ~Quadric();
         uint16_t getNumVertices() const { return numVertices; }
         uint16_t getNumFaces() const { return numFaces; }
-        const magma::VertexInputState& getVertexInput()  const noexcept;
-        virtual void draw(std::shared_ptr<magma::CommandBuffer> cmdBuffer) const noexcept;
+        const VertexInput& getVertexInput()  const noexcept;
+        virtual void draw(CommandBuffer cmdBuffer) const noexcept;
 
     protected:
-        Quadric(uint16_t numVertices, uint32_t numFaces,
-            std::shared_ptr<magma::Device> device);
-        void upload(std::shared_ptr<magma::CommandBuffer> cmdBuffer);
+        Quadric(uint16_t numVertices, uint32_t numFaces, CommandBuffer cmdBuffer);
 
         const uint16_t numVertices;
         const uint16_t numFaces;
-        std::shared_ptr<magma::SrcTransferBuffer> vertices;
-        std::shared_ptr<magma::SrcTransferBuffer> indices;
-        std::shared_ptr<magma::VertexBuffer> vertexBuffer;
-        std::shared_ptr<magma::IndexBuffer> indexBuffer;
+        std::unique_ptr<IMesh> mesh;
     };
 }

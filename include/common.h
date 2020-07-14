@@ -18,21 +18,11 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 #pragma once
 #include <cstdint>
 #include <memory>
-#include <exception>
+#include <stdexcept>
 #if !defined(DIRECTX_MATH_VERSION)
 // Include once
 #include "rapid/rapid.h"
 #endif
-
-namespace magma
-{
-    class Device;
-    class VertexBuffer;
-    class IndexBuffer;
-    class SrcTransferBuffer;
-    class CommandBuffer;
-    class VertexInputState;
-}
 
 namespace quadric
 {

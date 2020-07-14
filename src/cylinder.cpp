@@ -8,10 +8,9 @@ using namespace rapid;
 using namespace rapid::constants;
 
 Cylinder::Cylinder(float topRadius, float bottomRadius, float length, uint16_t sides, uint16_t rings, bool capped,
-    bool mirrorTexture, std::shared_ptr<magma::CommandBuffer> cmdBuffer):
+    bool mirrorTexture, CommandBuffer cmdBuffer):
     Quadric((sides + 1) * (rings + 1) + (capped ? (sides + 2) * 2 : 0),
-        sides * rings * 2 + (capped ? sides * 2 : 0),
-        cmdBuffer->getDevice()),
+        sides * rings * 2 + (capped ? sides * 2 : 0), std::move(cmdBuffer)),
     topRadius(topRadius),
     bottomRadius(bottomRadius),
     sides(sides),
@@ -41,7 +40,7 @@ Cylinder::Cylinder(float topRadius, float bottomRadius, float length, uint16_t s
     const float phiStep = twoPi/sides;
     SinCosTable phi(halfPi, phiStep, sides + 1);
     // Calculate rings
-    Vertex *verts = vertices->getMemory()->map<Vertex>();
+    Vertex *verts = mesh->mapVertices();
     for (uint16_t ring = 0; ring < rings + 1; ++ring)
     {
         for (uint16_t side = 0; side < sides + 1; ++side)
@@ -64,7 +63,7 @@ Cylinder::Cylinder(float topRadius, float bottomRadius, float length, uint16_t s
         radius -= radiusStep;
     }
     // Build indices
-    Face *faces = indices->getMemory()->map<Face>();
+    Face *faces = mesh->mapIndices();
     for (uint16_t ring = 0; ring < rings; ++ring)
     {
         for (uint16_t side = 0; side < sides; ++side)
@@ -87,7 +86,7 @@ Cylinder::Cylinder(float topRadius, float bottomRadius, float length, uint16_t s
         firstFaceIndex += sides;
         cap(phi, bottomRadius, -length/2.f, verts, faces, firstFaceIndex);
     }
-    upload(std::move(cmdBuffer));
+    mesh->unmap();
 }
 
 void Cylinder::pole(float y, Vertex& v) const noexcept

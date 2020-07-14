@@ -7,7 +7,7 @@ namespace quadric
     {
     public:
         explicit Sphere(float radius, uint16_t slices, uint16_t stacks, bool spherical,
-            std::shared_ptr<magma::CommandBuffer> cmdBuffer);
+            CommandBuffer cmdBuffer);
         float getRadius() const noexcept { return radius; }
         uint16_t getNumSlices() const noexcept { return slices; }
         uint16_t getNumStacks() const noexcept { return stacks; }

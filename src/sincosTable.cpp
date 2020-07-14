@@ -1,7 +1,6 @@
 #include "pch.h"
 #pragma hdrstop
 #include "sincosTable.h"
-#include "rapid/rapid.h"
 
 using namespace quadric;
 using namespace rapid;
