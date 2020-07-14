@@ -6,27 +6,31 @@ using namespace quadric;
 using namespace rapid;
 
 SinCosTable::SinCosTable(float start, float step, uint16_t count):
-    sines(count),
-    cosines(count)
+    lut((count >> 2) + (count%4 ? 1 : 0))
 {
-    vector4 steps(0.f, step, step * 2.f, step * 3.f);
-    vector4 angles(vector4(start) + steps);
-    vector4 adds(step * 4.f);
+#if defined(__x86_64__) || defined(_M_AMD64)
+    struct SinCosFloat4a
+    {
+        float4a qsin, qcos;
+    } *data = (SinCosFloat4a *)lut.data();
+#else
+    struct SinCosFloat4
+    {
+        float4 qsin, qcos;
+    } *data = (SinCosFloat4 *)lut.data();
+#endif
+    const vector4 steps(step * 4.f);
+    vector4 angles(start,
+        start + step,
+        start + step * 2.f,
+        start + step * 3.f);
     vector4 sinv, cosv;
-    for (uint16_t i = 0, j = count/4; i < j; ++i)
+    for (std::size_t i = 0, n = lut.size();
+        i < n;
+        ++i, angles += steps, ++data)
     {
         sincosEst(&sinv, &cosv, angles);
-        sinv.store((float4 *)&sines[i << 2]);
-        cosv.store((float4 *)&cosines[i << 2]);
-        angles += adds;
-    }
-    const uint16_t remainder = count%4;
-    if (remainder)
-    {
-        for (uint16_t i = count - remainder; i < count; ++i)
-        {
-            float angle = start + i * step;
-            sincosEst(&sines[i], &cosines[i], angle);
-        }
+        sinv.store(&data->qsin);
+        cosv.store(&data->qcos);
     }
 }
