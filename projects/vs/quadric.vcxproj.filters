@@ -51,9 +51,6 @@
     <ClInclude Include="..\..\include\teapot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
