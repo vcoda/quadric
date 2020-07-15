@@ -2,7 +2,7 @@
 #pragma hdrstop
 #if !defined(QUADRIC_GL)
 #include "mesh.h"
-#include "../../magma/magma.h"
+#include "magma.h"
 
 namespace quadric
 {

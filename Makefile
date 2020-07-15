@@ -1,6 +1,8 @@
 CC=g++
-INCLUDE_DIR=-I$(VULKAN_SDK)/include -Iinclude -Iinclude/rapid
-BASE_CFLAGS=-std=c++14 -m64 -msse4 -Werror $(INCLUDE_DIR)
+MAGMA_DIR=../magma
+INCLUDE_DIR=-I$(VULKAN_SDK)/include -I$(MAGMA_DIR) -Iinclude -Iinclude/rapid
+CONSTEXPR_DEPTH_FLAGS=-ftemplate-depth=2048 -fconstexpr-depth=2048
+BASE_CFLAGS=-std=c++14 -m64 -msse4 $(CONSTEXPR_DEPTH_FLAGS) -Werror $(INCLUDE_DIR)
 
 DEBUG ?= 1
 ifeq ($(DEBUG), 1)

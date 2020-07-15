@@ -1,5 +1,9 @@
 #pragma once
-#include "common.h"
+#include <cstdint>
+#if !defined(DIRECTX_MATH_VERSION)
+// Include once
+#include "rapid/rapid.h"
+#endif
 
 #if !defined(QUADRIC_GL)
 namespace magma
@@ -11,6 +15,24 @@ namespace magma
 
 namespace quadric
 {
+    struct TexCoord
+    {
+        float s;
+        float t;
+    };
+
+    struct Vertex
+    {
+        rapid::float3 pos;
+        rapid::float3 normal;
+        TexCoord tex;
+    };
+
+    struct Face
+    {
+        uint16_t v[3];
+    };
+
 #ifdef QUADRIC_GL
     typedef void* CommandBuffer;
     typedef uint32_t VertexInput;
