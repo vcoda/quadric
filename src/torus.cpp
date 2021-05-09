@@ -8,8 +8,8 @@ using namespace rapid;
 using namespace rapid::constants;
 
 Torus::Torus(float innerRadius, float outerRadius, uint16_t sides, uint16_t rings,
-    bool mirrorTexture, CommandBuffer cmdBuffer):
-    Quadric((sides + 1) * (rings + 1), sides * rings * 2, std::move(cmdBuffer)),
+    bool mirrorTexture, CommandBuffer cmdBuffer, Allocator allocator /* nullptr */):
+    Quadric((sides + 1) * (rings + 1), sides * rings * 2, std::move(cmdBuffer), std::move(allocator)),
     innerRadius(innerRadius),
     outerRadius(outerRadius),
     sides(sides),

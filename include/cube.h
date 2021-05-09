@@ -6,6 +6,6 @@ namespace quadric
     class Cube : public Quadric
     {
     public:
-        explicit Cube(CommandBuffer cmdBuffer);
+        explicit Cube(CommandBuffer cmdBuffer, Allocator allocator = nullptr);
     };
 }

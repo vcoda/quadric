@@ -16,7 +16,8 @@ namespace quadric
         virtual void draw(CommandBuffer cmdBuffer) const noexcept;
 
     protected:
-        Quadric(uint16_t numVertices, uint32_t numFaces, CommandBuffer cmdBuffer);
+        Quadric(uint16_t numVertices, uint32_t numFaces, 
+            CommandBuffer cmdBuffer, Allocator allocator);
 
         const uint16_t numVertices;
         const uint16_t numFaces;

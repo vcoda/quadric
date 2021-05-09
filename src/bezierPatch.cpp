@@ -10,8 +10,8 @@ using namespace rapid;
 using namespace rapid::constants;
 
 BezierPatch::BezierPatch(const uint32_t patches[][16], uint16_t numPatches, const float patchVertices[][3],
-    uint16_t divs, CommandBuffer cmdBuffer):
-    Quadric(numPatches * (divs + 1) * (divs + 1), divs * divs * 2, std::move(cmdBuffer)),
+    uint16_t divs, CommandBuffer cmdBuffer, Allocator allocator /* nullptr */):
+    Quadric(numPatches * (divs + 1) * (divs + 1), divs * divs * 2, std::move(cmdBuffer), std::move(allocator)),
     numPatches(numPatches),
     numPatchVertices((divs + 1) * (divs + 1))
 {

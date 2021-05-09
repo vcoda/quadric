@@ -9,7 +9,7 @@ namespace quadric
     {
     public:
         explicit Cylinder(float topRadius, float bottomRadius, float length, uint16_t sides, uint16_t rings, bool capped,
-            bool mirrorTexture, CommandBuffer cmdBuffer);
+            bool mirrorTexture, CommandBuffer cmdBuffer, Allocator allocator = nullptr);
         float getTopRadius() const noexcept { return topRadius; }
         float getBottomRadius() const noexcept { return bottomRadius; }
         uint16_t getNumSides() const noexcept { return sides; }

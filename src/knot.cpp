@@ -8,8 +8,8 @@ using namespace rapid;
 using namespace rapid::constants;
 
 Knot::Knot(float radius, uint16_t turns, uint16_t sides, uint16_t rings,
-    bool mirrorTexture, CommandBuffer cmdBuffer):
-    Quadric((sides + 1) * (rings + 1), sides * rings * 2, std::move(cmdBuffer)),
+    bool mirrorTexture, CommandBuffer cmdBuffer, Allocator allocator /* nullptr */):
+    Quadric((sides + 1) * (rings + 1), sides * rings * 2, std::move(cmdBuffer), std::move(allocator)),
     turns(turns),
     sides(sides),
     rings(rings),

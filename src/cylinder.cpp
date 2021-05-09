@@ -8,9 +8,9 @@ using namespace rapid;
 using namespace rapid::constants;
 
 Cylinder::Cylinder(float topRadius, float bottomRadius, float length, uint16_t sides, uint16_t rings, bool capped,
-    bool mirrorTexture, CommandBuffer cmdBuffer):
+    bool mirrorTexture, CommandBuffer cmdBuffer, Allocator allocator /* nullptr */):
     Quadric((sides + 1) * (rings + 1) + (capped ? (sides + 2) * 2 : 0),
-        sides * rings * 2 + (capped ? sides * 2 : 0), std::move(cmdBuffer)),
+        sides * rings * 2 + (capped ? sides * 2 : 0), std::move(cmdBuffer), std::move(allocator)),
     topRadius(topRadius),
     bottomRadius(bottomRadius),
     sides(sides),
