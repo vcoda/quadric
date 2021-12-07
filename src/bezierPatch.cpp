@@ -20,14 +20,14 @@ BezierPatch::BezierPatch(const uint32_t patches[][16], uint16_t numPatches, cons
     if (divs < 1)
         throw std::invalid_argument("invalid bezier subdivision parameter");
     Vertex *v = mesh->mapVertices();
-    rapid::vector3 controlPoints[16];
+    vector3 controlPoints[16];
     for (uint16_t np = 0; np < numPatches; ++np)
     {   // Set patch control points
         for (uint16_t i = 0; i < 16; ++i)
         {
-            controlPoints[i] = rapid::vector3(patchVertices[patches[np][i] - 1][0],
-                                              patchVertices[patches[np][i] - 1][1],
-                                              patchVertices[patches[np][i] - 1][2]);
+            controlPoints[i] = vector3(patchVertices[patches[np][i] - 1][0],
+                                       patchVertices[patches[np][i] - 1][1],
+                                       patchVertices[patches[np][i] - 1][2]);
         }
         // Generate grid
         for (uint16_t j = 0, k = 0; j <= divs; ++j)
@@ -36,10 +36,10 @@ BezierPatch::BezierPatch(const uint32_t patches[][16], uint16_t numPatches, cons
             for (uint16_t i = 0; i <= divs; ++i, ++k)
             {
                 const float s = i/(float)divs;
-                const rapid::vector3 pos = evalBezierPatch(controlPoints, s, t);
-                const rapid::vector3 dU = dUBezier(controlPoints, s, t);
-                const rapid::vector3 dV = dVBezier(controlPoints, s, t);
-                const rapid::vector3 normal = (dU ^ dV).normalized();
+                const vector3 pos = evalBezierPatch(controlPoints, s, t);
+                const vector3 dU = dUBezier(controlPoints, s, t);
+                const vector3 dV = dVBezier(controlPoints, s, t);
+                const vector3 normal = (dU ^ dV).normalized();
                 pos.store(&v->pos);
                 std::swap(v->pos.y, v->pos.z); // swap Y,Z
                 normal.store(&v->normal);
