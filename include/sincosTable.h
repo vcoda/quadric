@@ -14,12 +14,23 @@ namespace quadric
             { return lut[i/4].qcos[i%4]; }
 
     private:
-        struct alignas(16) VectorSinCos
+#if defined(__x86_64__) || defined(_M_AMD64)
+        typedef rapid::float4a float4;
+#else
+        typedef rapid::float4 float4;
+#endif
+        struct alignas(16) QuadSinCos
         {
-            float qsin[4];
-            float qcos[4];
+            union {
+                float4 vsin;
+                float qsin[4];
+            };
+            union {
+                float4 vcos;
+                float qcos[4];
+            };
         };
 
-        std::vector<VectorSinCos> lut;
+        std::vector<QuadSinCos> lut;
     };
 }
