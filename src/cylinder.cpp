@@ -29,16 +29,15 @@ Cylinder::Cylinder(float topRadius, float bottomRadius, float length, uint16_t s
     float radius = topRadius;
     float y = length/2.f;
     float ny = -radiusDelta/length;
-#ifdef _WIN32
+#ifdef _MSC_VER
     if (_isnan(ny))
-        ny = 0.f;
 #else
     if (isnan(ny))
-        ny = 0.f;
 #endif
+        ny = 0.f;
     // phi - angle on xz plane
     const float phiStep = twoPi/sides;
-    SinCosTable phi(halfPi, phiStep, sides + 1);
+    const SinCosTable phi(halfPi, phiStep, sides + 1);
     // Calculate rings
     Vertex *verts = mesh->mapVertices();
     for (uint16_t ring = 0; ring < rings + 1; ++ring)
