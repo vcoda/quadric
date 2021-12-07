@@ -90,7 +90,7 @@ inline float Knot::calcSCoord(uint16_t ring, bool mirror) const noexcept
     return (coordS <= 1.f) ? coordS : 2.f - coordS;
 }
 
-uint16_t Knot::calcVertexIndex(uint16_t ring, uint16_t side) const noexcept
+inline uint16_t Knot::calcVertexIndex(uint16_t ring, uint16_t side) const noexcept
 {
     const uint32_t index = ring * (sides + 1) + side;
     assert(index <= std::numeric_limits<uint16_t>::max());
