@@ -9,9 +9,9 @@ namespace quadric
         explicit Knot(float radius, uint16_t turns, uint16_t sides, uint16_t rings,
             bool mirrorTexture, CommandBuffer cmdBuffer, Allocator allocator = nullptr);
         float getRadius() const noexcept { return radius; }
-        uint16_t getTurns() const noexcept { return turns; }
-        uint16_t getSides() const noexcept { return sides; }
-        uint16_t getRings() const noexcept { return rings; }
+        uint16_t getNumTurns() const noexcept { return turns; }
+        uint16_t getNumSides() const noexcept { return sides; }
+        uint16_t getNumRings() const noexcept { return rings; }
 
     private:
         inline float calcSCoord(uint16_t ring, bool mirror) const noexcept;
