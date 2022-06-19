@@ -14,7 +14,8 @@ namespace quadric
             indexBufferSize(numFaces * sizeof(Face)),
             stagingBuffer(std::make_shared<magma::SrcTransferBuffer>(copyCmd->getDevice(), vertexBufferSize + indexBufferSize, nullptr, allocator)),
             copyCmd(std::move(copyCmd)),
-            allocator(std::move(allocator))
+            allocator(std::move(allocator)),
+            mapData(nullptr)
         {}
 
         const VertexInput& getVertexInput() const noexcept override
@@ -43,10 +44,16 @@ namespace quadric
         void unmap() override
         {
             stagingBuffer->getMemory()->unmap();
-            vertexBuffer = std::make_shared<magma::VertexBuffer>(copyCmd, stagingBuffer,
-                allocator, vertexBufferSize, 0);
-            indexBuffer = std::make_shared<magma::IndexBuffer>(std::move(copyCmd), std::move(stagingBuffer),
-                VK_INDEX_TYPE_UINT16, std::move(allocator), indexBufferSize, vertexBufferSize);
+            mapData = nullptr;
+            copyCmd->begin();
+            {
+                vertexBuffer = std::make_shared<magma::VertexBuffer>(copyCmd, stagingBuffer,
+                    allocator, vertexBufferSize, 0);
+                indexBuffer = std::make_shared<magma::IndexBuffer>(copyCmd, stagingBuffer,
+                    VK_INDEX_TYPE_UINT16, std::move(allocator), indexBufferSize, vertexBufferSize);
+            }
+            copyCmd->end();
+            commit();
         }
 
         void bind(std::shared_ptr<magma::CommandBuffer> cmdBuffer) const noexcept override
@@ -61,6 +68,16 @@ namespace quadric
         }
 
     private:
+        void commit()
+        {
+            std::shared_ptr<magma::Fence> fence = copyCmd->getFence();
+            fence->reset();
+            std::shared_ptr<magma::Queue> transferQueue = copyCmd->getDevice()->getQueue(VK_QUEUE_TRANSFER_BIT, 0);
+            transferQueue->submit(std::move(copyCmd), 0, nullptr, nullptr, fence);
+            fence->wait();
+            stagingBuffer.reset(); // Don't need anymore
+        }
+
         const VkDeviceSize vertexBufferSize;
         const VkDeviceSize indexBufferSize;
         std::shared_ptr<magma::VertexBuffer> vertexBuffer;
