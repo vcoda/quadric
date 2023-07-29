@@ -49,8 +49,8 @@ namespace quadric
             {
                 vertexBuffer = std::make_shared<magma::VertexBuffer>(copyCmd, stagingBuffer,
                     allocator, vertexBufferSize, 0);
-                indexBuffer = std::make_shared<magma::IndexBuffer>(copyCmd, stagingBuffer,
-                    VK_INDEX_TYPE_UINT16, std::move(allocator), indexBufferSize, vertexBufferSize);
+                indexBuffer = std::make_shared<magma::IndexBuffer>(copyCmd, VK_INDEX_TYPE_UINT16, stagingBuffer,
+                    std::move(allocator), indexBufferSize, vertexBufferSize);
             }
             copyCmd->end();
             commit();
