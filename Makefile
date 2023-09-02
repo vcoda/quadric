@@ -7,14 +7,14 @@ BASE_CFLAGS=-std=c++14 -m64 -msse4 $(CONSTEXPR_DEPTH_FLAGS) -Werror $(INCLUDE_DI
 DEBUG ?= 1
 ifeq ($(DEBUG), 1)
 	CFLAGS=$(BASE_CFLAGS) -O0 -g -D_DEBUG
-	TARGET=libquadricd.a
+	BUILD_TARGET=libquadricd.a
 else
 	CFLAGS=$(BASE_CFLAGS) -O3 -DNDEBUG
-	TARGET=libquadric.a
+	BUILD_TARGET=libquadric.a
 endif
 
 PCH_HEADER=include/pch.h
-OBJS= \
+SRC_OBJS= \
 	src/mesh/mesh.o \
 	src/mesh/meshGL.o \
 	src/bezierPatch.o \
@@ -29,16 +29,16 @@ OBJS= \
 	src/torus.o
 
 PCH=$(PCH_HEADER).gch
-DEPS := $(OBJS:.o=.d)
+DEPS := $(SRC_OBJS:.o=.d)
 
 -include $(DEPS)
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) -include $(PCH_HEADER) -c -o $@ $<
 
-quadric: $(PCH) $(OBJS)
-	@echo $(TARGET)
-	@ar rcs $(TARGET) $(OBJS)
+quadric: $(PCH) $(SRC_OBJS)
+	@echo $(BUILD_TARGET)
+	@ar rcs $(BUILD_TARGET) $(SRC_OBJS)
 
 $(PCH): $(PCH_HEADER)
 	$(CC) $(CFLAGS) -o $@ $<
