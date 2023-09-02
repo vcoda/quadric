@@ -13,6 +13,7 @@ else
 	TARGET=libquadric.a
 endif
 
+PCH_HEADER=include/pch.h
 OBJS= \
 	src/mesh/mesh.o \
 	src/mesh/meshGL.o \
@@ -27,18 +28,22 @@ OBJS= \
 	src/teapot.o \
 	src/torus.o
 
+PCH=$(PCH_HEADER).gch
 DEPS := $(OBJS:.o=.d)
 
 -include $(DEPS)
 
 %.o: %.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -include $(PCH_HEADER) -c -o $@ $<
 
-quadric: $(OBJS)
+quadric: $(PCH) $(OBJS)
 	@echo $(TARGET)
 	@ar rcs $(TARGET) $(OBJS)
 
+$(PCH): $(PCH_HEADER)
+	$(CC) $(CFLAGS) -o $@ $<
+
 clean:
-	@find . -name '*.o' -delete
-	@find . -name '*.a' -delete
+	@find . -iregex '.*\.\(o\|a\)' -delete
+	@rm -rf $(PCH)
 	@rm -rf $(DEPS)
