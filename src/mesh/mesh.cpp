@@ -94,12 +94,7 @@ namespace quadric
     }
 }
 
-namespace magma
-{
-    namespace specialization
-    {
-        template<> struct VertexAttribute<rapid::float3> : public AttributeFormat<VK_FORMAT_R32G32B32_SFLOAT> {};
-        template<> struct VertexAttribute<quadric::TexCoord> : public AttributeFormat<VK_FORMAT_R32G32_SFLOAT> {};
-    }
-}
+MAGMA_SPECIALIZE_VERTEX_ATTRIBUTE(rapid::float3, VK_FORMAT_R32G32B32_SFLOAT);
+MAGMA_SPECIALIZE_VERTEX_ATTRIBUTE(quadric::TexCoord, VK_FORMAT_R32G32_SFLOAT);
+
 #endif // !QUADRIC_GL
