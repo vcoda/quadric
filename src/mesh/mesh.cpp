@@ -53,7 +53,8 @@ namespace quadric
                     std::move(allocator), indexBufferSize, vertexBufferSize);
             }
             copyCmd->end();
-            commit();
+            magma::finish(copyCmd);
+            stagingBuffer.reset(); // Don't need anymore
         }
 
         void bind(std::shared_ptr<magma::CommandBuffer> cmdBuffer) const noexcept override
@@ -68,16 +69,6 @@ namespace quadric
         }
 
     private:
-        void commit()
-        {
-            std::shared_ptr<magma::Fence> fence = copyCmd->getFence();
-            fence->reset();
-            std::shared_ptr<magma::Queue> transferQueue = copyCmd->getDevice()->getQueue(VK_QUEUE_TRANSFER_BIT, 0);
-            transferQueue->submit(std::move(copyCmd), 0, nullptr, nullptr, fence);
-            fence->wait();
-            stagingBuffer.reset(); // Don't need anymore
-        }
-
         const VkDeviceSize vertexBufferSize;
         const VkDeviceSize indexBufferSize;
         std::shared_ptr<magma::VertexBuffer> vertexBuffer;
