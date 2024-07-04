@@ -45,7 +45,7 @@ namespace quadric
         {
             stagingBuffer->getMemory()->unmap();
             mapData = nullptr;
-            copyCmd->begin();
+            copyCmd->begin(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);
             {
                 vertexBuffer = std::make_shared<magma::VertexBuffer>(copyCmd, stagingBuffer,
                     allocator, vertexBufferSize, 0);
