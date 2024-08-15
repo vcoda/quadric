@@ -2,6 +2,7 @@
 #pragma hdrstop
 #if !defined(QUADRIC_GL)
 #include "mesh.h"
+#undef align
 #include "magma.h"
 
 namespace quadric
