@@ -354,7 +354,7 @@ float teapotVertices[kTeapotNumVertices][3] = {
 
 using namespace quadric;
 
-Teapot::Teapot(uint16_t subdivisionDegree, CommandBuffer cmdBuffer, Allocator allocator /* nullptr */):
+Teapot::Teapot(uint16_t subdivisionDegree, const CommandBuffer& cmdBuffer, Allocator allocator /* nullptr */):
     BezierPatch(teapotPatches,
         kTeapotNumPatches,
         teapotVertices,

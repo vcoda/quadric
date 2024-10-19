@@ -7,6 +7,6 @@ namespace quadric
     {
     public:
         explicit Teapot(uint16_t subdivisionDegree,
-            CommandBuffer cmdBuffer, Allocator allocator = nullptr);
+            const CommandBuffer& cmdBuffer, Allocator allocator = nullptr);
     };
 }

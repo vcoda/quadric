@@ -7,7 +7,7 @@ namespace quadric
     {
     public:
         explicit Plane(float width, float length, bool twoSided,
-            CommandBuffer cmdBuffer, Allocator allocator = nullptr);
+            const CommandBuffer& cmdBuffer, Allocator allocator = nullptr);
         float getWidth() const noexcept { return width; }
         float getLength() const noexcept { return length; }
 

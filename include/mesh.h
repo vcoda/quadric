@@ -39,7 +39,7 @@ namespace quadric
     typedef void* Allocator;
     typedef uint32_t VertexInput;
 #else
-    typedef std::shared_ptr<magma::CommandBuffer> CommandBuffer;
+    typedef std::unique_ptr<magma::CommandBuffer> CommandBuffer;
     typedef std::shared_ptr<magma::Allocator> Allocator;
     typedef magma::VertexInputState VertexInput;
 #endif
@@ -52,9 +52,9 @@ namespace quadric
         virtual Vertex *mapVertices() = 0;
         virtual Face *mapIndices() = 0;
         virtual void unmap() = 0;
-        virtual void bind(CommandBuffer cmdBuffer) const noexcept = 0;
-        virtual void draw(CommandBuffer cmdBuffer, uint32_t indexCount, int32_t baseVertex) const noexcept = 0;
+        virtual void bind(const CommandBuffer& cmdBuffer) const noexcept = 0;
+        virtual void draw(const CommandBuffer& cmdBuffer, uint32_t indexCount, int32_t baseVertex) const noexcept = 0;
     };
 
-    std::unique_ptr<IMesh> newMesh(uint32_t numVertices, uint32_t numFaces, CommandBuffer cmdBuffer, Allocator allocator);
+    std::unique_ptr<IMesh> newMesh(uint32_t numVertices, uint32_t numFaces, const CommandBuffer& cmdBuffer, Allocator allocator);
 }

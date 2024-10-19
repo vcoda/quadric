@@ -4,7 +4,7 @@
 
 using namespace quadric;
 
-Cube::Cube(CommandBuffer cmdBuffer, Allocator allocator /* nullptr */):
+Cube::Cube(const CommandBuffer& cmdBuffer, Allocator allocator /* nullptr */):
     Quadric(24, 36, std::move(cmdBuffer), std::move(allocator))
 {
     constexpr float verts[] = {

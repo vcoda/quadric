@@ -13,11 +13,11 @@ namespace quadric
         uint16_t getNumVertices() const noexcept { return numVertices; }
         uint16_t getNumFaces() const noexcept { return numFaces; }
         const VertexInput& getVertexInput()  const noexcept;
-        virtual void draw(CommandBuffer cmdBuffer) const noexcept;
+        virtual void draw(const CommandBuffer& cmdBuffer) const noexcept;
 
     protected:
         Quadric(uint16_t numVertices, uint32_t numFaces,
-            CommandBuffer cmdBuffer, Allocator allocator);
+            const CommandBuffer& cmdBuffer, Allocator allocator);
 
         const uint16_t numVertices;
         const uint16_t numFaces;

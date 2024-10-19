@@ -4,7 +4,7 @@
 
 using namespace quadric;
 
-Plane::Plane(float width, float length, bool twoSided, CommandBuffer cmdBuffer, Allocator allocator /* nullptr */):
+Plane::Plane(float width, float length, bool twoSided, const CommandBuffer& cmdBuffer, Allocator allocator /* nullptr */):
     Quadric(4, twoSided ? 4 : 2, std::move(cmdBuffer), std::move(allocator)),
     width(width),
     length(length)

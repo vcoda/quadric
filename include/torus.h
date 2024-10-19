@@ -7,7 +7,7 @@ namespace quadric
     {
     public:
         explicit Torus(float innerRadius, float outerRadius, uint16_t sides, uint16_t rings,
-            bool mirrorTexture, CommandBuffer cmdBuffer, Allocator allocator = nullptr);
+            bool mirrorTexture, const CommandBuffer& cmdBuffer, Allocator allocator = nullptr);
         float getInnerRadius() const noexcept { return innerRadius; }
         float getOuterRadius() const noexcept { return outerRadius; }
         uint16_t getNumSides() const noexcept { return sides; }

@@ -10,11 +10,11 @@ namespace quadric
     class Mesh : public IMesh
     {
     public:
-        explicit Mesh(uint32_t numVertices, uint32_t numFaces, std::shared_ptr<magma::CommandBuffer> copyCmd, std::shared_ptr<magma::Allocator> allocator):
+        explicit Mesh(uint32_t numVertices, uint32_t numFaces, const std::unique_ptr<magma::CommandBuffer>& copyCmd, std::shared_ptr<magma::Allocator> allocator):
             vertexBufferSize(numVertices * sizeof(Vertex)),
             indexBufferSize(numFaces * sizeof(Face)),
             stagingBuffer(std::make_shared<magma::SrcTransferBuffer>(copyCmd->getDevice(), vertexBufferSize + indexBufferSize, nullptr, allocator)),
-            copyCmd(std::move(copyCmd)),
+            copyCmd(copyCmd),
             allocator(std::move(allocator)),
             mapData(nullptr)
         {}
@@ -58,13 +58,13 @@ namespace quadric
             stagingBuffer.reset(); // Don't need anymore
         }
 
-        void bind(std::shared_ptr<magma::CommandBuffer> cmdBuffer) const noexcept override
+        void bind(const std::unique_ptr<magma::CommandBuffer>& cmdBuffer) const noexcept override
         {
             cmdBuffer->bindVertexBuffer(0, vertexBuffer);
             cmdBuffer->bindIndexBuffer(indexBuffer);
         }
 
-        void draw(std::shared_ptr<magma::CommandBuffer> cmdBuffer, uint32_t indexCount, int32_t baseVertex) const noexcept override
+        void draw(const std::unique_ptr<magma::CommandBuffer>& cmdBuffer, uint32_t indexCount, int32_t baseVertex) const noexcept override
         {
             cmdBuffer->drawIndexed(indexCount, 0, baseVertex);
         }
@@ -75,14 +75,14 @@ namespace quadric
         std::shared_ptr<magma::VertexBuffer> vertexBuffer;
         std::shared_ptr<magma::IndexBuffer> indexBuffer;
         std::shared_ptr<magma::SrcTransferBuffer> stagingBuffer;
-        std::shared_ptr<magma::CommandBuffer> copyCmd;
+        const std::unique_ptr<magma::CommandBuffer>& copyCmd;
         std::shared_ptr<magma::Allocator> allocator;
         void *mapData;
     };
 
-    std::unique_ptr<IMesh> newMesh(uint32_t numVertices, uint32_t numFaces, CommandBuffer copyCmd, Allocator allocator)
+    std::unique_ptr<IMesh> newMesh(uint32_t numVertices, uint32_t numFaces, const CommandBuffer& copyCmd, Allocator allocator)
     {
-        return std::make_unique<Mesh>(numVertices, numFaces, std::move(copyCmd), std::move(allocator));
+        return std::make_unique<Mesh>(numVertices, numFaces, copyCmd, std::move(allocator));
     }
 }
 

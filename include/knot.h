@@ -7,7 +7,7 @@ namespace quadric
     {
     public:
         explicit Knot(float radius, uint16_t turns, uint16_t sides, uint16_t rings,
-            bool mirrorTexture, CommandBuffer cmdBuffer, Allocator allocator = nullptr);
+            bool mirrorTexture, const CommandBuffer& cmdBuffer, Allocator allocator = nullptr);
         float getRadius() const noexcept { return radius; }
         uint16_t getNumTurns() const noexcept { return turns; }
         uint16_t getNumSides() const noexcept { return sides; }

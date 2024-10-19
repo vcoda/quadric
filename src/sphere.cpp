@@ -8,7 +8,7 @@ using namespace rapid;
 using namespace rapid::constants;
 
 Sphere::Sphere(float radius, uint16_t slices, uint16_t stacks, bool spherical,
-    CommandBuffer cmdBuffer, Allocator allocator /* nullptr */):
+    const CommandBuffer& cmdBuffer, Allocator allocator /* nullptr */):
     Quadric(2 + slices * (stacks - 1), 2 * slices + (stacks - 2) * (2 * slices), std::move(cmdBuffer), std::move(allocator)),
     radius(radius),
     slices(slices),
