@@ -106,13 +106,13 @@ namespace quadric
             stagingBuffer = 0;
         }
 
-        virtual void bind(const CommandBuffer& /* cmdBuffer */) const noexcept override
+        void bind(const CommandBuffer& /* cmdBuffer */) const noexcept override
         {
             glBindVertexArray(getVertexInput());
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
         }
 
-        virtual void draw(const CommandBuffer& /* cmdBuffer */, uint32_t indexCount, int32_t baseVertex) const noexcept override
+        void draw(const CommandBuffer& /* cmdBuffer */, uint32_t indexCount, int32_t baseVertex) const noexcept override
         {
             glDrawElementsBaseVertex(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, (const void *)0, baseVertex);
         }
