@@ -14,6 +14,7 @@ namespace quadric
         uint16_t getNumPatches() const noexcept { return numPatches; }
         uint16_t getNumPatchVertices() const noexcept { return numPatchVertices; }
         void draw(const CommandBuffer& cmdBuffer) const noexcept override;
+        void drawInstanced(const CommandBuffer& cmdBuffer, uint32_t instanceCount) const noexcept;
 
     private:
         const uint16_t numPatches;

@@ -117,6 +117,11 @@ namespace quadric
             glDrawElementsBaseVertex(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, (const void *)0, baseVertex);
         }
 
+        void drawInstanced(const CommandBuffer& /* cmdBuffer */, uint32_t indexCount, uint32_t instanceCount, int32_t baseVertex) const noexcept override
+        {
+            glDrawElementsInstancedBaseVertex(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, (const void *)0, instanceCount, baseVertex);
+        }
+
     private:
         void computeBoundingBox() noexcept
         {

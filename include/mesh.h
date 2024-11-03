@@ -60,7 +60,10 @@ namespace quadric
         virtual Face *mapIndices() = 0;
         virtual void unmap() = 0;
         virtual void bind(const CommandBuffer& cmdBuffer) const noexcept = 0;
-        virtual void draw(const CommandBuffer& cmdBuffer, uint32_t indexCount, int32_t baseVertex) const noexcept = 0;
+        virtual void draw(const CommandBuffer& cmdBuffer, uint32_t indexCount,
+            int32_t baseVertex) const noexcept = 0;
+        virtual void drawInstanced(const CommandBuffer& cmdBuffer, uint32_t indexCount,
+            uint32_t instanceCount, int32_t baseVertex) const noexcept = 0;
     };
 
     std::unique_ptr<IMesh> newMesh(uint32_t numVertices, uint32_t numFaces, const CommandBuffer& cmdBuffer, Allocator allocator);

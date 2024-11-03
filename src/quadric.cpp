@@ -30,3 +30,9 @@ void Quadric::draw(const CommandBuffer& cmdBuffer) const noexcept
     mesh->bind(cmdBuffer);
     mesh->draw(cmdBuffer, numFaces * 3, 0);
 }
+
+void Quadric::drawInstanced(const CommandBuffer& cmdBuffer, uint32_t instanceCount) const noexcept
+{
+    mesh->bind(cmdBuffer);
+    mesh->drawInstanced(cmdBuffer, numFaces * 3, instanceCount, 0);
+}

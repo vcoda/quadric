@@ -15,6 +15,7 @@ namespace quadric
         const VertexInput& getVertexInput()  const noexcept;
         const BoundingBox& getBoundingBox() const noexcept;
         virtual void draw(const CommandBuffer& cmdBuffer) const noexcept;
+        virtual void drawInstanced(const CommandBuffer& cmdBuffer, uint32_t instanceCount) const noexcept;
 
     protected:
         Quadric(uint16_t numVertices, uint32_t numFaces,

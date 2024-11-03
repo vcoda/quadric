@@ -88,3 +88,13 @@ void BezierPatch::draw(const CommandBuffer& cmdBuffer) const noexcept
         mesh->draw(cmdBuffer, numFaces * 3, (int)baseVertex);
     }
 }
+
+void BezierPatch::drawInstanced(const CommandBuffer& cmdBuffer, uint32_t instanceCount) const noexcept
+{
+    mesh->bind(cmdBuffer);
+    for (uint16_t i = 0; i < numPatches; ++i)
+    {
+        const uint32_t baseVertex = numPatchVertices * i;
+        mesh->drawInstanced(cmdBuffer, numFaces * 3, instanceCount, (int)baseVertex);
+    }
+}

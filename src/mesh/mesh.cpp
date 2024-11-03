@@ -75,6 +75,11 @@ namespace quadric
             cmdBuffer->drawIndexed(indexCount, 0, baseVertex);
         }
 
+        void drawInstanced(const std::unique_ptr<magma::CommandBuffer>& cmdBuffer, uint32_t indexCount, uint32_t instanceCount, int32_t baseVertex) const noexcept override
+        {
+            cmdBuffer->drawIndexedInstanced(indexCount, instanceCount, 0, baseVertex, 0);
+        }
+
     private:
         void computeBoundingBox() noexcept
         {
