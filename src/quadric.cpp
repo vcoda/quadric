@@ -20,6 +20,11 @@ const VertexInput& Quadric::getVertexInput() const noexcept
     return mesh->getVertexInput();
 }
 
+const BoundingBox& Quadric::getBoundingBox() const noexcept
+{
+    return mesh->getBoundingBox();
+}
+
 void Quadric::draw(const CommandBuffer& cmdBuffer) const noexcept
 {
     mesh->bind(cmdBuffer);

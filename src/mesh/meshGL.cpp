@@ -57,6 +57,11 @@ namespace quadric
             return vertexArray;
         }
 
+        const BoundingBox& getBoundingBox() const noexcept override
+        {
+            return bbox;
+        }
+
         Vertex *mapVertices() override
         {
             if (!mapData)
@@ -79,6 +84,7 @@ namespace quadric
 
         void unmap() override
         {
+            computeBoundingBox();
             glBindBuffer(GL_COPY_READ_BUFFER, stagingBuffer);
             glUnmapBuffer(GL_COPY_READ_BUFFER);
             mapData = nullptr;
@@ -112,12 +118,28 @@ namespace quadric
         }
 
     private:
+        void computeBoundingBox() noexcept
+        {
+            constexpr float min = std::numeric_limits<float>::max();
+            constexpr float max = std::numeric_limits<float>::min();
+            bbox.min = rapid::float3(min, min, min);
+            bbox.max = rapid::float3(max, max, max);
+            const Vertex *verts = (const Vertex *)mapData;
+            const uint64_t numVertices = vertexBufferSize / sizeof(Vertex);
+            for (uint64_t i = 0; i < numVertices; ++i)
+            {
+                bbox.min = rapid::min3(bbox.min, verts[i].pos);
+                bbox.max = rapid::max3(bbox.max, verts[i].pos);
+            }
+        }
+
         const GLsizeiptr vertexBufferSize;
         const GLsizeiptr indexBufferSize;
         GLuint vertexBuffer;
         GLuint indexBuffer;
         GLuint stagingBuffer;
         mutable GLuint vertexArray;
+        BoundingBox bbox;
         void *mapData;
     };
 

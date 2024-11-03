@@ -28,6 +28,11 @@ namespace quadric
             return vertexInput;
         }
 
+        const BoundingBox& getBoundingBox() const noexcept override
+        {
+            return bbox;
+        }
+
         Vertex *mapVertices() override
         {
             if (!mapData)
@@ -44,6 +49,7 @@ namespace quadric
 
         void unmap() override
         {
+            computeBoundingBox();
             stagingBuffer->getMemory()->unmap();
             mapData = nullptr;
             copyCmd->begin(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);
@@ -70,6 +76,21 @@ namespace quadric
         }
 
     private:
+        void computeBoundingBox() noexcept
+        {
+            constexpr float min = std::numeric_limits<float>::max();
+            constexpr float max = std::numeric_limits<float>::min();
+            bbox.min = rapid::float3(min, min, min);
+            bbox.max = rapid::float3(max, max, max);
+            const Vertex *verts = (const Vertex *)stagingBuffer->getMemory()->getMapPointer();
+            const uint64_t numVertices = vertexBufferSize / sizeof(Vertex);
+            for (uint64_t i = 0; i < numVertices; ++i)
+            {
+                bbox.min = rapid::min3(bbox.min, verts[i].pos);
+                bbox.max = rapid::max3(bbox.max, verts[i].pos);
+            }
+        }
+
         const VkDeviceSize vertexBufferSize;
         const VkDeviceSize indexBufferSize;
         std::shared_ptr<magma::VertexBuffer> vertexBuffer;
@@ -77,6 +98,7 @@ namespace quadric
         std::shared_ptr<magma::SrcTransferBuffer> stagingBuffer;
         const std::unique_ptr<magma::CommandBuffer>& copyCmd;
         std::shared_ptr<magma::Allocator> allocator;
+        BoundingBox bbox;
         void *mapData;
     };
 

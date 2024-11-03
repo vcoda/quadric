@@ -34,6 +34,12 @@ namespace quadric
         uint16_t v[3];
     };
 
+    struct BoundingBox
+    {
+        rapid::float3 min;
+        rapid::float3 max;
+    };
+
 #ifdef QUADRIC_GL
     typedef void* CommandBuffer;
     typedef void* Allocator;
@@ -49,6 +55,7 @@ namespace quadric
     public:
         virtual ~IMesh() = default;
         virtual const VertexInput& getVertexInput() const noexcept = 0;
+        virtual const BoundingBox& getBoundingBox() const noexcept = 0;
         virtual Vertex *mapVertices() = 0;
         virtual Face *mapIndices() = 0;
         virtual void unmap() = 0;
