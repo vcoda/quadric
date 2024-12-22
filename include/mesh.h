@@ -45,7 +45,7 @@ namespace quadric
     typedef void* Allocator;
     typedef uint32_t VertexInput;
 #else
-    typedef std::unique_ptr<magma::CommandBuffer> CommandBuffer;
+    typedef std::shared_ptr<magma::CommandBuffer> CommandBuffer;
     typedef std::shared_ptr<magma::Allocator> Allocator;
     typedef magma::VertexInputState VertexInput;
 #endif
