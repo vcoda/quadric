@@ -13,7 +13,7 @@ namespace quadric
         explicit Mesh(uint32_t numVertices, uint32_t numFaces, std::shared_ptr<magma::CommandBuffer> copyCmd, std::shared_ptr<magma::Allocator> allocator):
             vertexBufferSize(numVertices * sizeof(Vertex)),
             indexBufferSize(numFaces * sizeof(Face)),
-            stagingBuffer(std::make_shared<magma::SrcTransferBuffer>(copyCmd->getDevice(), vertexBufferSize + indexBufferSize, nullptr, allocator)),
+            stagingBuffer(std::make_shared<magma::SrcTransferBuffer>(copyCmd->getDevice(), vertexBufferSize + indexBufferSize, allocator)),
             copyCmd(std::move(copyCmd)),
             allocator(std::move(allocator)),
             mapData(nullptr)
