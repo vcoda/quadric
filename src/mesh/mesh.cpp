@@ -21,7 +21,7 @@ namespace quadric
 
         const VertexInput& getVertexInput() const noexcept override
         {
-            static magma::VertexInputStructure<Vertex> vertexInput(0, {
+            static magma::VertexInputStructure<Vertex, 3> vertexInput(0, {
                 {0, &Vertex::pos},
                 {1, &Vertex::normal},
                 {2, &Vertex::tex}});
