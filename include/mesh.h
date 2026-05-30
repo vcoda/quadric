@@ -10,7 +10,7 @@ namespace magma
 {
     class CommandBuffer;
     class Allocator;
-    class VertexInputState;
+    struct VertexInputState;
 }
 #endif
 

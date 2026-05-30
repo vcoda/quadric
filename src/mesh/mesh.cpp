@@ -5,6 +5,9 @@
 #undef align
 #include "magma.h"
 
+MAGMA_SPECIALIZE_VERTEX_ATTRIBUTE(rapid::float3, VK_FORMAT_R32G32B32_SFLOAT);
+MAGMA_SPECIALIZE_VERTEX_ATTRIBUTE(quadric::TexCoord, VK_FORMAT_R32G32_SFLOAT);
+
 namespace quadric
 {
     class Mesh : public IMesh
@@ -21,10 +24,12 @@ namespace quadric
 
         const VertexInput& getVertexInput() const noexcept override
         {
-            static magma::VertexInputStructure<Vertex, 3> vertexInput(0, {
-                {0, &Vertex::pos},
-                {1, &Vertex::normal},
-                {2, &Vertex::tex}});
+            static constexpr magma::VertexInputStructure<Vertex, 3> vertexInput(0,
+                {
+                    MAGMA_VERTEX_ATTRIBUTE(Vertex, pos, 0),
+                    MAGMA_VERTEX_ATTRIBUTE(Vertex, normal, 1),
+                    MAGMA_VERTEX_ATTRIBUTE(Vertex, tex, 2)
+                });
             return vertexInput;
         }
 
@@ -112,8 +117,5 @@ namespace quadric
         return std::make_unique<Mesh>(numVertices, numFaces, copyCmd, std::move(allocator));
     }
 }
-
-MAGMA_SPECIALIZE_VERTEX_ATTRIBUTE(rapid::float3, VK_FORMAT_R32G32B32_SFLOAT);
-MAGMA_SPECIALIZE_VERTEX_ATTRIBUTE(quadric::TexCoord, VK_FORMAT_R32G32_SFLOAT);
 
 #endif // !QUADRIC_GL
